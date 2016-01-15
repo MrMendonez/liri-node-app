@@ -1,36 +1,69 @@
-var twitter = require("./keys.js");
-var fs = require('fs'); //reads and writes files
+var fs = require("fs");
+var twitterKeys = require("./keys.js");
+var twitter = require('twitter');
+var spotify = require('spotify');
+var request = require('request');
+var params = process.argv.slice(2);
 
-fs.readFile("random.txt", "utf8", function(error, data) {
-    console.log(data);
+switch(params[0]) {
 
-    var dataArr = data.split(',');
-
-    console.log(dataArr);
-
-});
-
-var params = process.argv.slice(3);
-var result;
-
-switch(process.argv[2]) {
   case "my-tweets":
-    result = twitter(params);
+    console.log("my-tweets fired");
+    twitterCall(params[1]);
     break;
 
   case "spotify-this-song":
-    result = subtract.doIt(params);
+    if(params[1]) {
+      spotifyCall(params[1]);
+    } 
+    else {
+      spotifyCall("What\'s my age again?");
+    }
     break;
 
   case "movie-this":
-    result = product(params);
+    if(params[1]) {
+      movieCall(params[1]);
+    }
+    else {
+      movieCall("Ex Machina");
+    }
     break;
 
   case "do-what-it-says":
-    result = quotient(params);
+    saysCall(params[1]);
     break;
 
   default:
-    result = subtract.dontDoIt();
+    console.log("Invalid input. Please try again.");
+
 }
-console.log(result);
+
+function twitterCall() {
+  var client = new twitter({
+    consumer_key: twitterKeys.twitterKeys.consumer_key,
+    consumer_secret: twitterKeys.twitterKeys.consumer_secret,
+    access_token_key:  twitterKeys.twitterKeys.access_token_key,
+    access_token_secret: twitterKeys.twitterKeys.access_token_secret   
+  });
+  var params = {screen_name: 'MrMendonez'};
+  client.get('statuses/user_timeline', params, function(error, tweets, response){
+    if (!error) {
+      console.log(tweets);
+    }
+  });
+};
+
+function spotifyCall() {
+  spotify.search({ type: 'track', query: 'shake it off' }, function(err, data) {
+    if ( err ) {
+      console.log('Error occurred: ' + err);
+      return;
+    }
+    var albumInfo = data.tracks.items[0];
+    console.log("Artist: " + albumInfo.artists[0].name + "\r\n" +
+                "Track Name: " + albumInfo.name + "\r\n" + 
+                "Preview Link: " + albumInfo.preview_url + "\r\n" +
+                "Album: " + albumInfo.album.name);
+  });
+}
