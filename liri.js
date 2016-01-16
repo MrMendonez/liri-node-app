@@ -6,7 +6,11 @@ var request = require('request');
 var params = process.argv.slice(2);
 var welcomeMsg = "\r\n" + "Welcome! My name is LIRI. I can give you 'tweets', 'song' info, 'movie' info, or 'do' something for you."  + "\r\n\r\n" +
     "What would you like me to do?" + "\r\n\r\n" +
-    "Type: 'node liri.js tweets', 'node liri.js song <song name>', 'node liri.js movie <movie name>', or 'node liri.js do <something>'" + "\r\n";
+    "Type: " + "\r\n\r\n" +
+    "'node liri.js tweets' <twitter handle>" + "\r\n\r\n" + 
+    "'node liri.js song <song name>'" + "\r\n\r\n" + 
+    "'node liri.js movie <movie name>'" + "\r\n\r\n" +
+    "'node liri.js do <something>'" + "\r\n";
 
 switch(params[0]) {
 
@@ -56,7 +60,9 @@ function twitterCall() {
     access_token_key:  twitterKeys.twitterKeys.access_token_key,
     access_token_secret: twitterKeys.twitterKeys.access_token_secret   
   });
-  params = {screen_name: 'MrMendonez'};
+  var twitterHandle = 'MrMendonez';
+  twitterHandle = params[1];
+  params = {screen_name: twitterHandle};
   client.get('statuses/user_timeline', params, function(error, data, response){
     for(var i = 0; i < data.length; i++) {
       var twitterResults = "@" + data[i].user.screen_name + ": " + 
