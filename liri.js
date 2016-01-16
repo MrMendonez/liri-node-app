@@ -2,7 +2,6 @@ var fs = require("fs");
 var twitterKeys = require("./keys.js");
 var twitter = require('twitter');
 var spotify = require('spotify');
-var songName;
 var request = require('request');
 var params = process.argv.slice(2);
 
@@ -67,16 +66,18 @@ function twitterCall() {
 };
 
 function spotifyCall() {
-  songName = params[1];
+  var songName = params[1];
   spotify.search({ type: 'track', query: songName }, function(err, data) {
     if ( err ) {
       console.log('Error occurred: ' + err);
       return;
     }
     var albumInfo = data.tracks.items[0];
-    console.log("Artist: " + albumInfo.artists[0].name + "\r\n" +
+    var spotifyResults = "Artist: " + albumInfo.artists[0].name + "\r\n" +
       "Track Name: " + albumInfo.name + "\r\n" +
       "Album: " + albumInfo.album.name + "\r\n" +
-      "Preview Link: " + albumInfo.preview_url + "\r\n");
+      "Preview Link: " + albumInfo.preview_url + "\r\n";
+    console.log(spotifyResults);
   });
 }
+
