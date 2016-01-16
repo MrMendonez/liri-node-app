@@ -2,6 +2,7 @@ var fs = require("fs");
 var twitterKeys = require("./keys.js");
 var twitter = require('twitter');
 var spotify = require('spotify');
+var songName;
 var request = require('request');
 var params = process.argv.slice(2);
 
@@ -62,7 +63,8 @@ function twitterCall() {
 };
 
 function spotifyCall() {
-  spotify.search({ type: 'track', query: 'blank space' }, function(err, data) {
+  songName = params[1];
+  spotify.search({ type: 'track', query: songName }, function(err, data) {
     if ( err ) {
       console.log('Error occurred: ' + err);
       return;
