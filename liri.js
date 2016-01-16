@@ -53,7 +53,7 @@ function twitterCall() {
     access_token_key:  twitterKeys.twitterKeys.access_token_key,
     access_token_secret: twitterKeys.twitterKeys.access_token_secret   
   });
-  var params = {screen_name: 'MrMendonez'};
+  params = {screen_name: 'MrMendonez'};
   client.get('statuses/user_timeline', params, function(error, tweets, response){
     if (!error) {
       console.log(tweets);
@@ -62,7 +62,7 @@ function twitterCall() {
 };
 
 function spotifyCall() {
-  spotify.search({ type: 'track', query: 'shake it off' }, function(err, data) {
+  spotify.search({ type: 'track', query: 'blank space' }, function(err, data) {
     if ( err ) {
       console.log('Error occurred: ' + err);
       return;
@@ -70,7 +70,7 @@ function spotifyCall() {
     var albumInfo = data.tracks.items[0];
     console.log("Artist: " + albumInfo.artists[0].name + "\r\n" +
       "Track Name: " + albumInfo.name + "\r\n" +
-      "Album: " + albumInfo.album.name +
+      "Album: " + albumInfo.album.name + "\r\n" +
       "Preview Link: " + albumInfo.preview_url + "\r\n");
   });
 }
