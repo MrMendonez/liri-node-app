@@ -14,6 +14,9 @@ switch(params[0]) {
     twitterCall(params[1]);
     break;
 
+  case "song":
+  case "music":
+  case "spotify":
   case "spotify-this-song":
     if(params[1]) {
       spotifyCall(params[1]);
@@ -23,6 +26,7 @@ switch(params[0]) {
     }
     break;
 
+  case "movie":
   case "movie-this":
     if(params[1]) {
       movieCall(params[1]);
@@ -32,6 +36,7 @@ switch(params[0]) {
     }
     break;
 
+  case "do":
   case "do-what-it-says":
     saysCall(params[1]);
     break;
