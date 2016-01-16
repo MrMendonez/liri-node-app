@@ -69,8 +69,8 @@ function spotifyCall() {
     }
     var albumInfo = data.tracks.items[0];
     console.log("Artist: " + albumInfo.artists[0].name + "\r\n" +
-                "Track Name: " + albumInfo.name + "\r\n" + 
-                "Preview Link: " + albumInfo.preview_url + "\r\n" +
-                "Album: " + albumInfo.album.name);
+                "Track Name: " + albumInfo.name + "\r\n" +
+                "Album: " + albumInfo.album.name +
+                "Preview Link: " + albumInfo.preview_url + "\r\n");
   });
 }
