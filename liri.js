@@ -8,10 +8,10 @@ var params = process.argv.slice(2);
 
 switch(params[0]) {
 
+  case "tweet":
   case "tweets":
   case "twitter":
   case "my-tweets":
-    console.log("my-tweets fired");
     twitterCall(params[1]);
     break;
 
@@ -55,9 +55,13 @@ function twitterCall() {
     access_token_secret: twitterKeys.twitterKeys.access_token_secret   
   });
   params = {screen_name: 'MrMendonez'};
-  client.get('statuses/user_timeline', params, function(error, tweets, response){
-    if (!error) {
-      console.log(tweets);
+  client.get('statuses/user_timeline', params, function(error, data, response){
+    for(var i = 0; i < data.length; i++) {
+      var twitterResults = "@" + data[i].user.screen_name + ": " + 
+        data[i].text + "\r\n" + 
+        data[i].created_at + "\r\n" + 
+        "------- End Tweet -------" + "\r\n";
+      console.log(twitterResults); 
     }
   });
 };
