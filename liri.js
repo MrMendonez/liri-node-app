@@ -7,6 +7,8 @@ var params = process.argv.slice(2);
 
 switch(params[0]) {
 
+  case "tweets":
+  case "twitter":
   case "my-tweets":
     console.log("my-tweets fired");
     twitterCall(params[1]);
