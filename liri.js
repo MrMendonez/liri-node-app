@@ -4,13 +4,13 @@ var twitter = require('twitter');
 var spotify = require('spotify');
 var request = require('request');
 var params = process.argv.slice(2);
-var welcomeMsg = "\r\n" + "Welcome! My name is LIRI. I can give you 'tweets', 'song' info, 'movie' info, or 'do' something for you."  + "\r\n\r\n" +
+var welcomeMsg = "\r\n" + "Welcome! My name is LIRI. I can give you someone's latest tweets, song info, movie info, or do something for you."  + "\r\n\r\n" +
     "What would you like me to do?" + "\r\n\r\n" +
-    "Type: " + "\r\n\r\n" +
-    "'node liri.js tweets' <twitter handle>" + "\r\n\r\n" + 
-    "'node liri.js song <song name>'" + "\r\n\r\n" + 
-    "'node liri.js movie <movie name>'" + "\r\n\r\n" +
-    "'node liri.js do <something>'" + "\r\n";
+    "Type one of the following: " + "\r\n\r\n" +
+    "node liri.js tweets 'twitter handle'" + "\r\n\r\n" + 
+    "node liri.js song 'song name'" + "\r\n\r\n" + 
+    "node liri.js movie 'movie name'" + "\r\n\r\n" +
+    "node liri.js do 'something'" + "\r\n";
 
 switch(params[0]) {
 
