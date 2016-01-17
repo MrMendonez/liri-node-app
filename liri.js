@@ -51,7 +51,7 @@ switch(params[0]) {
   default:
     console.log(welcomeMsg);
 
-}
+} // End Switch Statement
 
 function twitterCall() {
   var client = new twitter({
@@ -64,29 +64,56 @@ function twitterCall() {
   twitterHandle = params[1];
   params = {screen_name: twitterHandle};
   client.get('statuses/user_timeline', params, function(error, data, response){
+    if(error) {
+      throw error;
+    }
     for(var i = 0; i < data.length; i++) {
-      var twitterResults = "@" + data[i].user.screen_name + ": " + 
+      var twitterResults = 
+        "@" + data[i].user.screen_name + ": " + 
         data[i].text + "\r\n" + 
         data[i].created_at + "\r\n" + 
         "------- End Tweet -------" + "\r\n";
       console.log(twitterResults); 
     }
-  });
-};
+  })
+}; // End twitterCall()
 
 function spotifyCall() {
   var songName = params[1];
-  spotify.search({ type: 'track', query: songName }, function(err, data) {
-    if ( err ) {
-      console.log('Error occurred: ' + err);
+  spotify.search({ type: 'track', query: songName }, function(error, data) {
+    if ( error ) {
+      console.log('Error occurred: ' + error);
       return;
     }
     var albumInfo = data.tracks.items[0];
-    var spotifyResults = "Artist: " + albumInfo.artists[0].name + "\r\n" +
+    var spotifyResults = 
+      "Artist: " + albumInfo.artists[0].name + "\r\n" +
       "Track Name: " + albumInfo.name + "\r\n" +
       "Album: " + albumInfo.album.name + "\r\n" +
       "Preview Link: " + albumInfo.preview_url + "\r\n";
     console.log(spotifyResults);
-  });
-}
+  })
+}; // End spotifyCall()
 
+function movieCall() {
+  var omdbApi = 'http://www.omdbapi.com/?t=';
+  var movie = params[1];
+  var omdbParameters = '&y=&plot=short&r=json&tomatoes=true';
+  var omdbUrl = omdbApi + movie + omdbParameters
+  request(omdbUrl, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var movieResults = 
+        "Title: " + JSON.parse(body)["Title"] + "\r\n" +
+        "Year: " + JSON.parse(body)["Year"] + "\r\n" +
+        "Rated: " + JSON.parse(body)["Rated"] + "\r\n" +
+        "Released: " + JSON.parse(body)["Released"] + "\r\n" +
+        "Genre: " + JSON.parse(body)["Genre"] + "\r\n" +
+        "Director: " + JSON.parse(body)["Director"] + "\r\n" +
+        "Writer: " + JSON.parse(body)["Writer"] + "\r\n" +
+        "Actors: " + JSON.parse(body)["Actors"] + "\r\n" +
+        "Plot: " + JSON.parse(body)["Plot"] + "\r\n" +
+        "IMDB Rating: " + JSON.parse(body)["imdbRating"] + "\r\n";
+      console.log(movieResults);
+    }
+  })
+}; // End movieCall()
