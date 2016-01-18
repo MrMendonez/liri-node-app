@@ -48,9 +48,7 @@ switch(params[0]) {
       spotifyCall(params[1]);
     } 
     else {
-      if(params[1] === undefined) {
-        spotifyCall("Blink 182 - What's My Age Again");
-      }
+      spotifyCall("Blink 182 - What's My Age Again");
     }
     break;
 
