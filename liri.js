@@ -4,15 +4,34 @@ var twitter = require('twitter');
 var spotify = require('spotify');
 var request = require('request');
 var params = process.argv.slice(2);
-var welcomeMsg = "\r\n" + "Welcome! My name is LIRI. I can give you someone's latest tweets, song info, movie info, or do something for you."  + "\r\n\r\n" +
-    "What would you like me to do?" + "\r\n\r\n" +
-    "Type one of the following: " + "\r\n\r\n" +
-    "node liri.js tweets 'twitter handle'" + "\r\n\r\n" + 
-    "node liri.js song 'song name'" + "\r\n\r\n" + 
-    "node liri.js movie 'movie name'" + "\r\n\r\n" +
-    "node liri.js do 'something'" + "\r\n";
+var welcomeMsg = 
+  "\r\n" +
+  "Welcome! My name is LIRI. I can give you someone's latest tweets, song info, movie info, or do something for you."  + "\r\n\r\n" +
+  "What would you like me to do?" + "\r\n\r\n" +
+  "Type one of the following: " + "\r\n\r\n" +
+  "node liri.js tweets 'twitter handle'" + "\r\n\r\n" + 
+  "node liri.js song 'song name'" + "\r\n\r\n" + 
+  "node liri.js movie 'movie name'" + "\r\n\r\n" +
+  "node liri.js do 'something'" + "\r\n";
+var defaultMsg = 
+  "\r\n" +
+  "Invalid response. Please try again." + "\r\n\r\n" +
+  "What would you like me to do?" + "\r\n\r\n" +
+  "Type one of the following: " + "\r\n\r\n" +
+  "node liri.js tweets 'twitter handle'" + "\r\n\r\n" + 
+  "node liri.js song 'song name'" + "\r\n\r\n" + 
+  "node liri.js movie 'movie name'" + "\r\n\r\n" +
+  "node liri.js do 'something'" + "\r\n";
 
 switch(params[0]) {
+
+  case undefined: // User enters nothing after 'node liri.js'
+  case "hello":
+  case "hi":
+  case "hey":
+  case "hey liri":
+    console.log(welcomeMsg);
+    break;
 
   case "tweet":
   case "tweets":
@@ -29,7 +48,9 @@ switch(params[0]) {
       spotifyCall(params[1]);
     } 
     else {
-      spotifyCall("What\'s my age again?");
+      if(params[1] === undefined) {
+        spotifyCall("Blink 182 - What's My Age Again");
+      }
     }
     break;
 
@@ -39,17 +60,20 @@ switch(params[0]) {
       movieCall(params[1]);
     }
     else {
-      movieCall("Ex Machina");
+      if(params[1] === undefined) {
+        params[1] = "Ex Machina";
+        movieCall();
+      }
     }
     break;
 
   case "do":
   case "do-what-it-says":
-    saysCall(params[1]);
+    doCall(params[1]);
     break;
 
   default:
-    console.log(welcomeMsg);
+    console.log(defaultMsg);
 
 } // End Switch Statement
 
@@ -78,10 +102,9 @@ function twitterCall() {
   })
 }; // End twitterCall()
 
-function spotifyCall() {
-  var songName = params[1];
+function spotifyCall(songName) {
   spotify.search({ type: 'track', query: songName }, function(error, data) {
-    if ( error ) {
+    if(error) {
       console.log('Error occurred: ' + error);
       return;
     }
@@ -117,3 +140,14 @@ function movieCall() {
     }
   })
 }; // End movieCall()
+
+function doCall() {
+  fs.readFile("random.txt", "utf8", function(error, data) {
+    if(error) {
+      console.log('Error occurred: ' + error);
+      return;
+    }
+    data = data.split(',');
+    spotifyCall(data[1]);
+  })
+};
