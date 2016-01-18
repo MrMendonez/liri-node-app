@@ -61,7 +61,7 @@ switch(params[0]) {
     }
     else {
       if(params[1] === undefined) {
-        params[1] = "Ex Machina";
+        params[1] = "Mr. Nobody";
         movieCall();
       }
     }
@@ -97,7 +97,8 @@ function twitterCall() {
         data[i].text + "\r\n" + 
         data[i].created_at + "\r\n" + 
         "------- End Tweet -------" + "\r\n";
-      console.log(twitterResults); 
+      console.log(twitterResults);
+      logData(twitterResults);
     }
   })
 }; // End twitterCall()
@@ -115,6 +116,7 @@ function spotifyCall(songName) {
       "Album: " + albumInfo.album.name + "\r\n" +
       "Preview Link: " + albumInfo.preview_url + "\r\n";
     console.log(spotifyResults);
+    logData(spotifyResults);
   })
 }; // End spotifyCall()
 
@@ -128,6 +130,8 @@ function movieCall() {
       var movieResults = 
         "Title: " + JSON.parse(body)["Title"] + "\r\n" +
         "Year: " + JSON.parse(body)["Year"] + "\r\n" +
+        "Country: " + JSON.parse(body)["Country"] + "\r\n" +
+        "Language: " + JSON.parse(body)["Language"] + "\r\n" +
         "Rated: " + JSON.parse(body)["Rated"] + "\r\n" +
         "Released: " + JSON.parse(body)["Released"] + "\r\n" +
         "Genre: " + JSON.parse(body)["Genre"] + "\r\n" +
@@ -135,8 +139,11 @@ function movieCall() {
         "Writer: " + JSON.parse(body)["Writer"] + "\r\n" +
         "Actors: " + JSON.parse(body)["Actors"] + "\r\n" +
         "Plot: " + JSON.parse(body)["Plot"] + "\r\n" +
-        "IMDB Rating: " + JSON.parse(body)["imdbRating"] + "\r\n";
+        "IMDB Rating: " + JSON.parse(body)["imdbRating"] + "\r\n" +
+        "Rotten Tomatoes Rating: " + JSON.parse(body)["tomatoRating"] + "\r\n" +
+        "Rotten Tomato URL: " + JSON.parse(body)["tomatoURL"] + "\r\n";
       console.log(movieResults);
+      logData(movieResults);
     }
   })
 }; // End movieCall()
@@ -151,3 +158,11 @@ function doCall() {
     spotifyCall(data[1]);
   })
 };
+
+function logData(logEntry) {
+  fs.appendFile("log.txt", logEntry, (error) => {
+    if(error) {
+      throw error;
+    }
+  });
+}
