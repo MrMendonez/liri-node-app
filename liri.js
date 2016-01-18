@@ -96,7 +96,7 @@ function twitterCall() {
         "@" + data[i].user.screen_name + ": " + 
         data[i].text + "\r\n" + 
         data[i].created_at + "\r\n" + 
-        "------- End Tweet -------" + "\r\n";
+        "------- End Tweet -------" + "\r\n\r\n";
       console.log(twitterResults);
       logData(twitterResults);
     }
@@ -114,7 +114,7 @@ function spotifyCall(songName) {
       "Artist: " + albumInfo.artists[0].name + "\r\n" +
       "Track Name: " + albumInfo.name + "\r\n" +
       "Album: " + albumInfo.album.name + "\r\n" +
-      "Preview Link: " + albumInfo.preview_url + "\r\n";
+      "Preview Link: " + albumInfo.preview_url + "\r\n\r\n";
     console.log(spotifyResults);
     logData(spotifyResults);
   })
@@ -141,7 +141,7 @@ function movieCall() {
         "Plot: " + JSON.parse(body)["Plot"] + "\r\n" +
         "IMDB Rating: " + JSON.parse(body)["imdbRating"] + "\r\n" +
         "Rotten Tomatoes Rating: " + JSON.parse(body)["tomatoRating"] + "\r\n" +
-        "Rotten Tomato URL: " + JSON.parse(body)["tomatoURL"] + "\r\n";
+        "Rotten Tomato URL: " + JSON.parse(body)["tomatoURL"] + "\r\n\r\n";
       console.log(movieResults);
       logData(movieResults);
     }
@@ -160,7 +160,7 @@ function doCall() {
 }; // End doCall()
 
 function logData(logEntry) {
-  fs.appendFile("log.txt", logEntry, (error) => {
+  fs.appendFile("./log.txt", logEntry, (error) => {
     if(error) {
       throw error;
     }
