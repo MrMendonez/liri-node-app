@@ -147,7 +147,7 @@ function movieCall() {
 }; // End movieCall()
 
 function doCall() {
-  fs.readFile("random.txt", "utf8", function(error, data) {
+  fs.readFile("./random.txt", "utf8", function(error, data) {
     if(error) {
       console.log('Error occurred: ' + error);
       return;
