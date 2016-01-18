@@ -157,7 +157,7 @@ function doCall() {
     data = data.split(',');
     spotifyCall(data[1]);
   })
-};
+}; // End doCall()
 
 function logData(logEntry) {
   fs.appendFile("log.txt", logEntry, (error) => {
@@ -165,4 +165,4 @@ function logData(logEntry) {
       throw error;
     }
   });
-}
+} // End logData()
