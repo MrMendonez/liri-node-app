@@ -12,7 +12,7 @@ var welcomeMsg =
   "node liri.js tweets 'twitter handle'" + "\r\n\r\n" + 
   "node liri.js song 'song name'" + "\r\n\r\n" + 
   "node liri.js movie 'movie name'" + "\r\n\r\n" +
-  "node liri.js do 'something'" + "\r\n";
+  "node liri.js do" + "\r\n";
 var defaultMsg = 
   "\r\n" +
   "Invalid response. Please try again." + "\r\n\r\n" +
@@ -21,7 +21,7 @@ var defaultMsg =
   "node liri.js tweets 'twitter handle'" + "\r\n\r\n" + 
   "node liri.js song 'song name'" + "\r\n\r\n" + 
   "node liri.js movie 'movie name'" + "\r\n\r\n" +
-  "node liri.js do 'something'" + "\r\n";
+  "node liri.js do" + "\r\n";
 
 switch(params[0]) {
 
